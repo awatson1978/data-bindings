@@ -1,0 +1,108 @@
+<head>
+  <title>data-bindings</title>
+</head>
+
+<body>
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <div class="container">
+    <div class="centered row">
+      <h1>Meteor Data Bindings!</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="dropdown">
+            <a data-toggle="dropdown" href="#">Dropdown trigger</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              {{#each menuItems}}
+                <li class="menu-item"><a href="#">{{item}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+          </div>
+          <div class="panel-body">
+            <h4>Example 1 - data-toggle</h4>
+            <p>
+              Please note how the drop-down menu above uses Bootstrap's default data-toggle attributes.  As of the Blaze engine in Meteor 0.8, data-* attributes are supported by default.  If you're having problems with them, check the additional packages in your application, and the timing of your templates.
+            </p>
+            <hr>
+            <h4>Example 2 - data-name</h4>
+            {{#with exampleTwo}}
+              <div class="row">
+                <div class="col col-md-6">
+                  <input id="fooInput" type="text" class="form-control" data-name="item" value="{{item}}">
+                </div>
+                <div class="col col-md-6">
+                  <h5>{{item}}</h5>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <pre>&#60;input id="fooInput" type="text" class="form-control" <span class="red">data-name</span>="item" value="&#123;&#123;item&#125;&#125;"&#62;</pre>
+<pre>Meteor.startup(function(){
+  $("input[data-name]").on("keyup", function( eventObject ) {
+    var dataName = eventObject.target.getAttribute("data-name");
+    var object = {};
+    object[dataName] = eventObject.target.value;
+    Session.set(dataName, object);
+  });
+});</pre>
+                </div>
+              </div>
+            {{/with}}
+            <hr>
+            <h4>Example 3 - sessionVar</h4>
+            {{#with exampleThree}}
+              <div class="row">
+                <div class="col col-md-6">
+                  <input id="fooInput" type="text" class="form-control" sessionVar="item" value="{{item}}">
+                </div>
+                <div class="col col-md-6">
+                  <h5>{{item}}</h5>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <pre>&#60;input id="fooInput" type="text" class="form-control" <span class="red">sessionVar</span>="item" value="&#123;&#123;item&#125;&#125;"&#62;</pre>
+                </div>
+              </div>
+            {{/with}}
+            <hr>
+
+<h4>Example 4 - MultiBindings</h4>
+{{#with exampleThree}}
+  <div class="row">
+    <div class="col col-md-6">
+      <input id="fooInput" type="text" class="form-control" sessionVar="item" value="{{item}}">
+    </div>
+    <div class="col col-md-6">
+      <h5>{{item}}</h5>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <pre>&#60;input id="fooInput" type="text" class="form-control" <span class="red">data-collection</span>="Posts" <span class="red">data-field</span>="item" value="&#123;&#123;item&#125;&#125;"&#62;</pre>
+    </div>
+  </div>
+{{/with}}
+<hr>
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</template>
